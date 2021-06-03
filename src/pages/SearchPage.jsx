@@ -25,6 +25,11 @@ const Form = styled.form`
   height: 30vh;
   width: 100%;
 `;
+
+const Label = styled.label`
+  margin-bottom: 20px;
+`;
+
 const Inputdiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,6 +42,7 @@ const Input = styled.input`
   padding: 20px;
   font-size: 20px;
   color: black;
+  border-radius: 5px 5px 0 0;
 `;
 
 const Button = styled.button`
@@ -46,6 +52,7 @@ const Button = styled.button`
   margin-top: 20px;
   padding: 10px;
   border: none;
+  border-radius: 5px;
 `;
 
 export const SearchPage = () => {
@@ -63,7 +70,7 @@ export const SearchPage = () => {
   return (
     <PageContainer>
       <Form onSubmit={onFormSubmit}>
-        <label>Search for users</label>
+        <Label>Search for users</Label>
         <Inputdiv>
           <Input 
             type="text"
