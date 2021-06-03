@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { octokit } from "github-client/client";
+import { octokit } from "github-client";
 
 export const users = createSlice({
   name: "users",
