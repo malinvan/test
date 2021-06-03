@@ -19,7 +19,7 @@ import { FaEnvelope } from "react-icons/fa";
 
 const Container = styled.section`
   width: 100vw;
-  @media (min-width: 1025) {
+  @media (min-width: 1025px) {
     display: flex;
     flex-direction: row;
   }
@@ -33,9 +33,11 @@ const InfoContainer = styled.section`
   @media (min-width: 768px) and (max-width: 1024px) {
     font-size: 30px;
   }
-  @media (min-width: 1025) {
-    font-size: px;
-  }
+  @media (min-width: 1025px) and (max-width: 2000px) {
+    width: 30vw;
+    height: 100vh;
+    flex-grow: 1;
+  } ;
 `;
 
 const Infodiv = styled.div`
@@ -45,17 +47,21 @@ const Infodiv = styled.div`
     display: flex;
     flex-direction: row;
     font-size: 20px;
-  // justify-content: space-evenly;
+    // justify-content: space-evenly;
   }
   @media (min-width: 1025px) {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     font-size: 20px;
-  // justify-content: space-evenly;
+    // justify-content: space-evenly;
   }
 `;
 
 const ReposContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   margin: 0 20px;
 `;
 
@@ -64,14 +70,20 @@ const RepoContainer = styled.section`
   padding: 20px;
   margin-top: 20px;
   border-radius: 5px;
-    &:hover {
-      box-shadow: 0px 0px 15px 5px #CCCCCC;
-    }
+  &:hover {
+    box-shadow: 0px 0px 15px 5px #cccccc;
+  }
+  @media (min-width: 1025px) and (max-width: 2000px) {
+    margin-left: 30px;
+  }
 `;
 
 const RepoLink = styled.a`
   color: black;
   text-decoration: none;
+  @media (min-width: 1025px) {
+    display: inline-block;
+  }
 `;
 
 const AvatarNameDiv = styled.div`
@@ -97,6 +109,9 @@ const Avatar = styled.img`
   border-radius: 50%;
   width: 30%;
   margin-right: 30px;
+  @media (min-width: 1025px) {
+    width: 120px;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -124,52 +139,70 @@ export const DetailsPage = () => {
   }, [userName, dispatch]);
 
   return (
-    <Container>
+    <>
       <Link to="/">
         <FaAngleLeft />
         Back
       </Link>
-      {user && (
-        <>
-          <InfoContainer>
-            <AvatarNameDiv>
-              <Avatar src={user.avatar_url} />
-              <NameContainer>
-                <Name>{user.name}</Name>
-                <Login>@{user.login}</Login>
-              </NameContainer>
-            </AvatarNameDiv>
-            <p>"{user.bio}"</p>
-            <Infodiv>
-              <UserInfo>
-                <p><FaMapMarkerAlt />{user.location === null ? 'Unknown' : user.location}</p>
-                <p><FaBriefcase /> Company: {user.company === null ? 'Unknown' : user.company}</p>
-                <p><FaEnvelope /> {user.email}</p>
-              </UserInfo>
-              <RepoInfo>
-                <p>Public Repos: {user.public_repos}</p>
-                <p>Private Repos: {!user.owned_private_repos ? 'None' : user.owned_private_repos}</p>
-                <p>Followers: {user.followers}</p>
-                <p>Following: {user.following}</p>
-              </RepoInfo>
-            </Infodiv>
-          </InfoContainer>
-          <ReposContainer>
-            <h1>Repos</h1>
-            {repos &&
-              repos.map((repo) => (
-                <RepoContainer>
-                  <RepoLink href={repo.html_url}>
-                    <h1>{repo.full_name}</h1>
-                    <p>Languages: {repo.language === null ? 'Unknown' : repo.language}</p>
-                    <p>Forks: {repo.forks}</p>
-                    <p>Private: {repo.private === false ? 'No' : 'Yes'}</p>
-                  </RepoLink>
-                </RepoContainer>
-              ))}
-          </ReposContainer>
-        </>
-      )}
-    </Container>
+      <Container>
+        {user && (
+          <>
+            <InfoContainer>
+              <AvatarNameDiv>
+                <Avatar src={user.avatar_url} />
+                <NameContainer>
+                  <Name>{user.name}</Name>
+                  <Login>@{user.login}</Login>
+                </NameContainer>
+              </AvatarNameDiv>
+              <p>"{user.bio}"</p>
+              <Infodiv>
+                <UserInfo>
+                  <p>
+                    <FaMapMarkerAlt />
+                    {user.location === null ? "Unknown" : user.location}
+                  </p>
+                  <p>
+                    <FaBriefcase /> Company:{" "}
+                    {user.company === null ? "Unknown" : user.company}
+                  </p>
+                  <p>
+                    <FaEnvelope />{" "}
+                    {user.email === null ? "Unknown" : user.email}
+                  </p>
+                </UserInfo>
+                <RepoInfo>
+                  <p>Public Repos: {user.public_repos}</p>
+                  <p>
+                    Private Repos:{" "}
+                    {!user.owned_private_repos
+                      ? "None"
+                      : user.owned_private_repos}
+                  </p>
+                  <p>Followers: {user.followers}</p>
+                  <p>Following: {user.following}</p>
+                </RepoInfo>
+              </Infodiv>
+            </InfoContainer>
+            <ReposContainer>
+              {repos &&
+                repos.map((repo) => (
+                  <RepoContainer>
+                    <RepoLink href={repo.html_url}>
+                      <h1>{repo.full_name}</h1>
+                      <p>
+                        Languages:{" "}
+                        {repo.language === null ? "Unknown" : repo.language}
+                      </p>
+                      <p>Forks: {repo.forks}</p>
+                      <p>Private: {repo.private === false ? "No" : "Yes"}</p>
+                    </RepoLink>
+                  </RepoContainer>
+                ))}
+            </ReposContainer>
+          </>
+        )}
+      </Container>
+    </>
   );
 };
