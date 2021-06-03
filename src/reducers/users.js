@@ -32,10 +32,8 @@ export const getUser = (userName) => {
       username: userName
     });
     console.log(response);
-    setTimeout(() => {
       dispatch(users.actions.setUser(response.data))
       dispatch(ui.actions.setLoader(false));
-    }, 2000)
   }
 }
 
@@ -47,9 +45,7 @@ export const searchUsers = (userName) => {
       q: userName,
     })
     console.log(response);
-    setTimeout(() => {
       dispatch(users.actions.setSearchResult(response.data))
       dispatch(ui.actions.setLoader(false));
-    }, 2000)
   }
 }

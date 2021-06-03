@@ -1,12 +1,11 @@
 import 
   React, 
   { useState, 
-    // useEffect 
   } from 'react'
 import { 
-  useDispatch, 
-  // useSelector 
+  useDispatch
 } from "react-redux";
+import styled from 'styled-components/macro';
 
 // Reducers
 import { searchUsers } from "../reducers/users";
@@ -14,6 +13,40 @@ import { searchUsers } from "../reducers/users";
 // Components
 import { SearchResults } from '../components/SearchResults'
 
+const PageContainer = styled.section`
+
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  width: 100%;
+`;
+const Inputdiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  background-color: white;
+  border: none;
+  border-bottom: 2px black solid;
+  padding: 20px;
+  font-size: 20px;
+  color: black;
+`;
+
+const Button = styled.button`
+  background-color: #495867;
+  color: white;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  border: none;
+`;
 
 export const SearchPage = () => {
   const [searchValue, setSearchvalue] = useState('')
@@ -28,16 +61,18 @@ export const SearchPage = () => {
   }
 
   return (
-    <>
-      <form onSubmit={onFormSubmit}>
+    <PageContainer>
+      <Form onSubmit={onFormSubmit}>
         <label>Search for users</label>
-        <input 
-          type="text"
-          onChange={(e) => setSearchvalue(e.target.value)}
-        />
-        <button>SEARCH</button>
-      </form>
+        <Inputdiv>
+          <Input 
+            type="text"
+            onChange={(e) => setSearchvalue(e.target.value)}
+          />
+          <Button>SEARCH</Button>
+        </Inputdiv>
+      </Form>
       <SearchResults />
-    </>
+    </PageContainer>
   )
 }
