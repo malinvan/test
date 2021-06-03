@@ -5,19 +5,39 @@ import { ui } from 'reducers/ui';
 export const users = createSlice({
   name: "users",
   initialState: {
-    // user: null,
+    user: null,
     searchResults: null,
   },
   reducers: {
-    // setUser: (store, action) => {
-    //   store.user = action.payload;
-    // },
+    setUser: (store, action) => {
+      store.user = action.payload;
+    },
     setSearchResult: (store, action) => {
       store.searchResults = action.payload;
     },
   },
 });
 
+/**
+ * Thunk to retrieve given user
+ * @param {*} userName - The userame of the user to fetch
+ * @returns 
+ */
+export const getUser = (userName) => {
+  return async (dispatch, getState) => {
+    dispatch(ui.actions.setLoader(true));
+
+    console.log(userName);
+    const response = await octokit.rest.users.getByUsername({
+      username: userName
+    });
+    console.log(response);
+    setTimeout(() => {
+      dispatch(users.actions.setUser(response.data))
+      dispatch(ui.actions.setLoader(false));
+    }, 2000)
+  }
+}
 
 // Thunk for search field
 export const searchUsers = (userName) => {
@@ -27,7 +47,9 @@ export const searchUsers = (userName) => {
       q: userName,
     })
     console.log(response);
-    dispatch(users.actions.setSearchResult(response.data))
-    dispatch(ui.actions.setLoader(false));
+    setTimeout(() => {
+      dispatch(users.actions.setSearchResult(response.data))
+      dispatch(ui.actions.setLoader(false));
+    }, 2000)
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom'
 
 import { NoResults } from 'components/NoResults'
 
@@ -17,10 +18,10 @@ export const SearchResults = () => {
     <>
       {
         searchResults && searchResults.items.map((result) => (
-          <a href='github.com'>
+          <Link key={result.id} to={`/user/${result.login}`}>
             <Avatar src={result.avatar_url} />
             <p>{result.login}</p>
-          </a>
+          </Link>
         ))
       }
       {!searchResults && <NoResults />}

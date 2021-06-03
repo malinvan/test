@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { octokit } from "github-client/client";
+import { ui } from 'reducers/ui';
 
 export const repo = createSlice({
   name: "repo",
@@ -8,26 +9,22 @@ export const repo = createSlice({
   },
   reducers: {
     setRepos: (store, action) => {
-      store.repo = action.payload;
+      store.repos = action.payload;
     },
   },
 });
 
+
 export const getRepos = (userName) => {
-  return async (dispatch) => {
-    const response = await octokit.rest.repos.listForAuthenticatedUser({
-      username: userName,
-      affiliation: 'owner',
-      visibility: 'all',
-      per_page: 20,
-      sort: 'pushed'
-    })
+  return async (dispatch, getState) => {
+    dispatch(ui.actions.setLoader(true));
+
+    console.log(userName);
+    const response = await octokit.rest.repos.listForUser({
+      username: userName
+    });
     console.log(response);
+    dispatch(ui.actions.setLoader(false));
     dispatch(repo.actions.setRepos(response.data))
   }
 }
-
-
-// octokit.rest.repos.listForUser({
-//   username,
-// });

@@ -31,7 +31,7 @@ export const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={SearchPage} />
-          <Route exact path='/detailspage:id' component={DetailsPage}/>
+          <Route exact path='/user/:id' component={DetailsPage}/>
         </Switch>
       </BrowserRouter>
     </Provider>
