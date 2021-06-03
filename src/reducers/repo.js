@@ -7,7 +7,7 @@ export const repo = createSlice({
     repos: [],
   },
   reducers: {
-    setRepos: (store, actions) => {
+    setRepos: (store, action) => {
       store.repo = action.payload;
     },
   },

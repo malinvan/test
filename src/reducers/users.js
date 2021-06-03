@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { octokit } from "github-client";
+import { ui } from 'reducers/ui';
 
 export const users = createSlice({
   name: "users",
@@ -12,7 +13,7 @@ export const users = createSlice({
     //   store.user = action.payload;
     // },
     setSearchResult: (store, action) => {
-      store.searchResult = action.payload;
+      store.searchResults = action.payload;
     },
   },
 });
@@ -21,10 +22,12 @@ export const users = createSlice({
 // Thunk for search field
 export const searchUsers = (userName) => {
   return async (dispatch, getState) => {
+    dispatch(ui.actions.setLoader(true));
     const response = await octokit.rest.search.users({
       q: userName,
     })
     console.log(response);
     dispatch(users.actions.setSearchResult(response.data))
+    dispatch(ui.actions.setLoader(false));
   }
 }
