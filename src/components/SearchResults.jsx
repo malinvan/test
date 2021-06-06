@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom'
 
 import { Loading } from './Loading'
+import { NoResults } from './NoResults'
 
 const Container = styled.section`
   display: flex;
@@ -52,7 +53,7 @@ export const SearchResults = () => {
           </Link>
         ))
       }
-      {/* {!searchResults && <NoResults />} */}
+      {searchResults && searchResults.total_count === 0 ? <NoResults /> : ''}
     </Container>
   )
 }

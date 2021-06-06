@@ -6,10 +6,7 @@ export const users = createSlice({
   name: "users",
   initialState: {
     user: null,
-    searchResults: {
-      total_count: 0,
-      items: []
-    },
+    searchResults: null,
     currentPage: 0,
   },
   reducers: {
