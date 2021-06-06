@@ -15,6 +15,7 @@ import { ui } from "./reducers/ui";
 // Import of pages/components
 import { SearchPage } from "./pages/SearchPage";
 import { DetailsPage } from "./pages/DetailsPage";
+import { Header } from "./components/Header";
 
 const reducer = combineReducers({
   users: users.reducer,
@@ -27,6 +28,7 @@ const store = configureStore({ reducer });
 export const App = () => {
     return (
     <Provider store={store}>
+      <Header />
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={SearchPage} />
