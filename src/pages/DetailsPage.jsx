@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useRouteMatch,
@@ -10,12 +10,21 @@ import styled from "styled-components/macro";
 // Reducers
 import { getUser } from "../reducers/users";
 import { getRepos } from "../reducers/repo";
+import { addStar } from "../reducers/repo";
 
 // Font Awesome
 import { FaAngleLeft } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+
+const Back = styled.button`
+  color: black;
+  background: #d9d9d9;
+  font-weigh: bold;
+  border: none;
+`;
 
 const Container = styled.section`
   width: 100vw;
@@ -26,7 +35,7 @@ const Container = styled.section`
 `;
 
 const InfoContainer = styled.section`
-  background-color: white;
+  background-color: #f8f8f8;
   padding: 20px;
   margin: 20px;
   border-radius: 5px;
@@ -47,7 +56,6 @@ const Infodiv = styled.div`
     display: flex;
     flex-direction: row;
     font-size: 20px;
-    // justify-content: space-evenly;
   }
   @media (min-width: 1025px) {
     display: flex;
@@ -59,14 +67,21 @@ const Infodiv = styled.div`
 
 const ReposContainer = styled.section`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-direction: column;
+  // flex-wrap: wrap;
+  // justify-content: flex-start;
   margin: 0 20px;
+  @media (min-width: 1025px) {
+    width: 70vw;
+  }
 `;
 
 const RepoContainer = styled.section`
-  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f8f8f8;
   padding: 20px;
   margin-top: 20px;
   border-radius: 5px;
@@ -105,6 +120,10 @@ const Login = styled.p`
   color: #7d7d7d;
 `;
 
+const Bio = styled.p`
+  font-style: italic;
+`;
+
 const Avatar = styled.img`
   border-radius: 50%;
   width: 30%;
@@ -124,6 +143,20 @@ const RepoInfo = styled.div`
   // margin-right: 60px;
 `;
 
+const StarButton = styled.button`
+  background-color: #f8f8f8;
+  border-radius: 25%;
+  border: none;
+  &:hover {
+    transform: scale(1.5, 1.5);
+  }
+`;
+
+const Star = styled(FaStar)`
+  color: #cfdbd5;
+  font-size: 40px;
+`;
+
 export const DetailsPage = () => {
   const match = useRouteMatch("/user/:slug");
   const userName = match.params.slug;
@@ -138,11 +171,18 @@ export const DetailsPage = () => {
     console.log(repos);
   }, [userName, dispatch]);
 
+  const addStarClick = (e, owner, repository) => {
+    e.preventDefault();
+    dispatch(addStar(owner, repository));
+  };
+
   return (
     <>
       <Link to="/">
-        <FaAngleLeft />
-        Back
+        <Back>
+          <FaAngleLeft />
+          Back
+        </Back>
       </Link>
       <Container>
         {user && (
@@ -155,7 +195,7 @@ export const DetailsPage = () => {
                   <Login>@{user.login}</Login>
                 </NameContainer>
               </AvatarNameDiv>
-              <p>"{user.bio}"</p>
+              <Bio>{user.bio === null ? "No bio available" : user.bio}</Bio>
               <Infodiv>
                 <UserInfo>
                   <p>
@@ -189,14 +229,24 @@ export const DetailsPage = () => {
                 repos.map((repo) => (
                   <RepoContainer>
                     <RepoLink href={repo.html_url}>
-                      <h1>{repo.full_name}</h1>
-                      <p>
-                        Languages:{" "}
-                        {repo.language === null ? "Unknown" : repo.language}
-                      </p>
-                      <p>Forks: {repo.forks}</p>
-                      <p>Private: {repo.private === false ? "No" : "Yes"}</p>
+                      <div>
+                        <h1>{repo.full_name}</h1>
+                        <p>
+                          Languages:{" "}
+                          {repo.language === null ? "Unknown" : repo.language}
+                        </p>
+                        <p>Forks: {repo.forks}</p>
+                        <p>Private: {repo.private === false ? "No" : "Yes"}</p>
+                      </div>
                     </RepoLink>
+                    <StarButton
+                      className={repo.star ? "yellow" : "gray"}
+                      onClick={(e) => {
+                        addStarClick(e, repo.owner.login, repo.name);
+                      }}
+                    >
+                      <Star />
+                    </StarButton>
                   </RepoContainer>
                 ))}
             </ReposContainer>

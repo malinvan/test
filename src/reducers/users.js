@@ -6,7 +6,11 @@ export const users = createSlice({
   name: "users",
   initialState: {
     user: null,
-    searchResults: null,
+    searchResults: {
+      total_count: 0,
+      items: []
+    },
+    currentPage: 0,
   },
   reducers: {
     setUser: (store, action) => {
@@ -15,6 +19,9 @@ export const users = createSlice({
     setSearchResult: (store, action) => {
       store.searchResults = action.payload;
     },
+    addSearchResults: (store, action) => {
+      store.searchResults.items = [...store.searchResults.items, action.payload];
+    }
   },
 });
 
@@ -23,13 +30,13 @@ export const users = createSlice({
  * @param {*} userName - The userame of the user to fetch
  * @returns 
  */
-export const getUser = (userName) => {
+ export const getUser = (userName) => {
   return async (dispatch, getState) => {
     dispatch(ui.actions.setLoader(true));
 
     console.log(userName);
     const response = await octokit.rest.users.getByUsername({
-      username: userName
+      username: userName,
     });
     console.log(response);
       dispatch(users.actions.setUser(response.data))
@@ -41,11 +48,35 @@ export const getUser = (userName) => {
 export const searchUsers = (userName) => {
   return async (dispatch, getState) => {
     dispatch(ui.actions.setLoader(true));
+    
+    // For pagination
+    // const searchResults = getState().users.searchResults
+    // let page = 1;
+    // if (searchResults) {
+    //   searchResults.items / 30 
+    // }
+
     const response = await octokit.rest.search.users({
       q: userName,
     })
     console.log(response);
-      dispatch(users.actions.setSearchResult(response.data))
-      dispatch(ui.actions.setLoader(false));
+    dispatch(ui.actions.setLoader(false));
+    // if (page === 1) {
+    //   dispatch(users.actions.setSearchResult(response.data))
+    // } else {
+    //   dispatch(users.actions.addSearchResults(response.data.items))
+    // }
+    dispatch(users.actions.setSearchResult(response.data))
+    dispatch(users.actions.addSearchResults(response.data.items))
   }
 }
+
+// pagination
+// export const loadMoreUsers = (userName, currentPage) => {
+//   return async (dispatch, getState) => {
+//     dispatch(ui.actions.setLoader(true));
+//     // At the end of the page set off thunk to load more users
+//     // 
+//     dispatch(ui.actions.setLoader(false));
+//   }
+// }

@@ -3,11 +3,14 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom'
 
-import { NoResults } from 'components/NoResults'
+import { Loading } from './Loading'
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
+    @media (min-width: 1025px) {
+      margin: 0 auto;
+    }
 `;
 
 const UserContainer = styled.div`
@@ -21,7 +24,9 @@ const UserContainer = styled.div`
 const Avatar = styled.img`
   border-radius: 50%;
   width: 50px;
-  // padding-right: 20px;
+  @media (min-width: 1025px) {
+    width: 100px;
+  }
 `;
 
 const Username = styled.p`
@@ -31,10 +36,12 @@ const Username = styled.p`
 
 export const SearchResults = () => {
   const searchResults = useSelector((state) => state.users.searchResults);
+  const loading = useSelector((store) => store.ui.isLoading);
   console.log(searchResults);
 
   return (
     <Container>
+      {loading && <Loading /> }
       {
         searchResults && searchResults.items.map((result) => (
           <Link key={result.id} to={`/user/${result.login}`}>
