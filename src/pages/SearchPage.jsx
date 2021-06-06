@@ -3,7 +3,8 @@ import
   { useState, 
   } from 'react'
 import { 
-  useDispatch
+  useDispatch,
+  useSelector
 } from "react-redux";
 import styled from 'styled-components/macro';
 
@@ -12,6 +13,7 @@ import { searchUsers } from "../reducers/users";
 
 // Components
 import { SearchResults } from '../components/SearchResults'
+import { Loading } from '../components/Loading'
 
 const PageContainer = styled.section`
 
@@ -57,6 +59,7 @@ const Button = styled.button`
 
 export const SearchPage = () => {
   const [searchValue, setSearchvalue] = useState('')
+  const loader = useSelector((store) => store.ui.isLoading);
 
   const dispatch = useDispatch();
   
@@ -80,6 +83,7 @@ export const SearchPage = () => {
         </Inputdiv>
       </Form>
       <SearchResults />
+      {loader && <Loading /> }
     </PageContainer>
   )
 }

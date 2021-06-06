@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom'
 
-import { Loading } from './Loading'
 import { NoResults } from './NoResults'
 
 const Container = styled.section`
@@ -45,12 +44,10 @@ const Username = styled.p`
 
 export const SearchResults = () => {
   const searchResults = useSelector((state) => state.users.searchResults);
-  const loading = useSelector((store) => store.ui.isLoading);
   console.log(searchResults);
 
   return (
     <Container>
-      {loading && <Loading /> }
       {
         searchResults && searchResults.items.map((result) => (
           <LinkTag key={result.id} to={`/user/${result.login}`}>
