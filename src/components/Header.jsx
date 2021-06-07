@@ -14,7 +14,7 @@ const Title = styled.h1`
 export const Header = () => {
   return (
   <Container>
-    <Title>Welcome to GitSearch</Title>
+    <Title>GitSearch</Title>
   </Container>
   )
 }
