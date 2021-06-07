@@ -1,6 +1,10 @@
-# What the solution does
+# Malin's Code Test for Futurice 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/96435caf-ec9c-4d7e-9624-1c20797965c0/deploy-status)](https://app.netlify.com/sites/malins-codetest-futurice/deploys)
 
+## Live application
+https://malins-codetest-futurice.netlify.app
+
+## What the solution does
 The solution is built using React, Redux and Styled-components. And the API-calls are made by using thunks with the GitHHub client library Octokit.
 
 I used the GitHub API to build a search engine where you can search for GitHub users and display a details page about them and their repos. In the details page there is also a function to star the repo. Due to the fact that I would've had to make an API-call for wach single repo to see whether a repo had previously been starred by you or not, I choose to, for now, not to implement the visual indicator for whether the repo had been starred or not.
@@ -43,5 +47,3 @@ My take aways are:
 2. That it's easy to get caught up in the coding and sometimes forget to commit often enough, something I'm trying to remind myself of and improve on.
 3. Sometimes it's good to take a step back, whether that's active procrastination when focusing on something else for a bit or stepping away from the computer for a while.
 4. Finding time is easier when you don't have a sick child at home :)
- 
-# Imagine you would need to continue developing and maintaining that application for a while and consider that other people might need to work with your code (including us as reviewers).
