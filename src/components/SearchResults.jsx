@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
 import { useSelector } from "react-redux";
-import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom'
+import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
 
 // Components
-import { NoResults } from './NoResults'
+import { NoResults } from "./NoResults";
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    @media (min-width: 1025px) {
-      margin: 0 auto;
-    }
+  @media (min-width: 1025px) {
+    margin: 0 auto;
+  }
 `;
 
 const LinkTag = styled(Link)`
@@ -48,17 +48,16 @@ export const SearchResults = () => {
 
   return (
     <Container>
-      {
-        searchResults && searchResults.items.map((result) => (
+      {searchResults &&
+        searchResults.items.map((result) => (
           <LinkTag key={result.id} to={`/user/${result.login}`}>
             <UserContainer>
               <Avatar src={result.avatar_url} />
               <Username>{result.login}</Username>
             </UserContainer>
           </LinkTag>
-        ))
-      }
-      {searchResults && searchResults.total_count === 0 ? <NoResults /> : ''}
+        ))}
+      {searchResults && searchResults.total_count === 0 ? <NoResults /> : ""}
     </Container>
-  )
-}
+  );
+};

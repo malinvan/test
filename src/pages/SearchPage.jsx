@@ -1,23 +1,15 @@
-import 
-  React, 
-  { useState, 
-  } from 'react'
-import { 
-  useDispatch,
-  useSelector
-} from "react-redux";
-import styled from 'styled-components/macro';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components/macro";
 
 // Reducers
 import { searchUsers } from "../reducers/users";
 
 // Components
-import { SearchResults } from '../components/SearchResults'
-import { Loading } from '../components/Loading'
+import { SearchResults } from "../components/SearchResults";
+import { Loading } from "../components/Loading";
 
-const PageContainer = styled.section`
-
-`;
+const PageContainer = styled.section``;
 
 const Form = styled.form`
   display: flex;
@@ -58,7 +50,7 @@ const Button = styled.button`
 `;
 
 export const SearchPage = () => {
-  const [searchValue, setSearchvalue] = useState('')
+  const [searchValue, setSearchvalue] = useState("");
   const isLoading = useSelector((store) => store.ui.isLoading);
 
   const dispatch = useDispatch();
@@ -66,22 +58,19 @@ export const SearchPage = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(searchUsers(searchValue));
-  }
+  };
 
   return (
     <PageContainer>
       <Form onSubmit={onFormSubmit}>
         <Label>Search for users</Label>
         <Inputdiv>
-          <Input 
-            type="text"
-            onChange={(e) => setSearchvalue(e.target.value)}
-          />
+          <Input type="text" onChange={(e) => setSearchvalue(e.target.value)} />
           <Button>SEARCH</Button>
         </Inputdiv>
       </Form>
       <SearchResults />
-      {isLoading && <Loading /> }
+      {isLoading && <Loading />}
     </PageContainer>
-  )
-}
+  );
+};

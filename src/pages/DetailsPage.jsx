@@ -1,14 +1,6 @@
-import React, { 
-  useEffect
-} from "react";
-import { 
-  useDispatch, 
-  useSelector 
-} from "react-redux";
-import {
-  useRouteMatch,
-  Link,
-} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouteMatch, Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 // Reducers
