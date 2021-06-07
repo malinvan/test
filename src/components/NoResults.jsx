@@ -6,5 +6,5 @@ const Text = styled.h1`
 `;
 
 export const NoResults = () => {
-  return <Text>Ooops, there was no match for that user. Try again 😊</Text>
+  return <Text>Ooops, there was no match for that user. Try again <span role="img" alt="Happy emoji" aria-label="Happy emoji" >😊</span></Text>
 }
