@@ -15,6 +15,9 @@ import { FaBriefcase } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
+// Components
+import { Loading } from "../components/Loading";
+
 const Back = styled.button`
   color: black;
   background: #d9d9d9;
@@ -158,6 +161,7 @@ export const DetailsPage = () => {
   const userName = match.params.slug;
   const user = useSelector((state) => state.users.user);
   const repos = useSelector((state) => state.repo.repos);
+  const isLoading = useSelector((store) => store.ui.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -178,6 +182,7 @@ export const DetailsPage = () => {
           Back
         </Back>
       </Link>
+      {isLoading && <Loading />}
       <Container>
         {user && (
           <>
@@ -234,7 +239,6 @@ export const DetailsPage = () => {
                       </div>
                     </RepoLink>
                     <StarButton
-                      className={repo.star ? "yellow" : "gray"}
                       onClick={(e) => {
                         addStarClick(e, repo.owner.login, repo.name);
                       }}
