@@ -1,4 +1,5 @@
 # What the solution does
+[![Netlify Status](https://api.netlify.com/api/v1/badges/96435caf-ec9c-4d7e-9624-1c20797965c0/deploy-status)](https://app.netlify.com/sites/malins-codetest-futurice/deploys)
 
 The solution is built using React, Redux and Styled-components. And the API-calls are made by using thunks with the GitHHub client library Octokit.
 
@@ -18,6 +19,8 @@ In order to no add the Github token directly in the repository (this is a bad pr
 - I would have liked to make the styling a bit more professional as well as the UX and UI.
 
 - Also immidiate feedback in the search. Meaning to render search results simultaniously as typing. But due to GitHub having restrictions on how many API-calls you can make I decided against this.
+
+- Add a toaster for the stars using a library like React-Toastify https://www.npmjs.com/package/react-toastify
 
 # Instructions on how to run the application on a new computer (it is OK to restrict it to a specific OS or environment)
 To run the application locally you will need a GitHub API-token and either add it in the client.js file or as an environmental token in the terminal.
