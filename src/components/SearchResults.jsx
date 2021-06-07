@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom'
 
+// Components
 import { NoResults } from './NoResults'
 
 const Container = styled.section`
