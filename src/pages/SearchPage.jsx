@@ -59,7 +59,7 @@ const Button = styled.button`
 
 export const SearchPage = () => {
   const [searchValue, setSearchvalue] = useState('')
-  const loader = useSelector((store) => store.ui.isLoading);
+  const isLoading = useSelector((store) => store.ui.isLoading);
 
   const dispatch = useDispatch();
 
@@ -81,8 +81,7 @@ export const SearchPage = () => {
         </Inputdiv>
       </Form>
       <SearchResults />
-      {/* {loader && <Loading /> } */}
-      <Loading />
+      {isLoading && <Loading /> }
     </PageContainer>
   )
 }
