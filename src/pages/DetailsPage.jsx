@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { 
+  useEffect
+} from "react";
+import { 
+  useDispatch, 
+  useSelector 
+} from "react-redux";
 import {
   useRouteMatch,
   Link,
-  // Redirect
 } from "react-router-dom";
 import styled from "styled-components/macro";
 
@@ -167,8 +171,6 @@ export const DetailsPage = () => {
   useEffect(() => {
     dispatch(getUser(userName));
     dispatch(getRepos(userName));
-    console.log(user);
-    console.log(repos);
   }, [userName, dispatch]);
 
   const addStarClick = (e, owner, repository) => {

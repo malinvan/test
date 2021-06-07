@@ -44,7 +44,6 @@ const Username = styled.p`
 
 export const SearchResults = () => {
   const searchResults = useSelector((state) => state.users.searchResults);
-  console.log(searchResults);
 
   return (
     <Container>

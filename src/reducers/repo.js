@@ -21,14 +21,12 @@ export const repo = createSlice({
 
 export const getRepos = (userName) => {
   return async (dispatch, getState) => {
-    dispatch(ui.actions.setLoader(true));
+    dispatch(ui.actions.setLoading(true));
 
-    console.log(userName);
     const response = await octokit.rest.repos.listForUser({
       username: userName
     });
-    console.log(response);
-    dispatch(ui.actions.setLoader(false));
+    dispatch(ui.actions.setLoading(false));
     dispatch(repo.actions.setRepos(response.data))
   }
 }

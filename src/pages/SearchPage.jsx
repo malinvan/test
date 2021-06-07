@@ -62,12 +62,10 @@ export const SearchPage = () => {
   const loader = useSelector((store) => store.ui.isLoading);
 
   const dispatch = useDispatch();
-  
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(searchUsers(searchValue));
-    console.log(searchValue);
   }
 
   return (
@@ -83,7 +81,8 @@ export const SearchPage = () => {
         </Inputdiv>
       </Form>
       <SearchResults />
-      {loader && <Loading /> }
+      {/* {loader && <Loading /> } */}
+      <Loading />
     </PageContainer>
   )
 }

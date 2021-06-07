@@ -29,51 +29,25 @@ export const users = createSlice({
  */
  export const getUser = (userName) => {
   return async (dispatch, getState) => {
-    dispatch(ui.actions.setLoader(true));
+    dispatch(ui.actions.setLoading(true));
 
-    console.log(userName);
     const response = await octokit.rest.users.getByUsername({
       username: userName,
     });
-    console.log(response);
       dispatch(users.actions.setUser(response.data))
-      dispatch(ui.actions.setLoader(false));
+      dispatch(ui.actions.setLoading(false));
   }
 }
 
 // Thunk for search field
 export const searchUsers = (userName) => {
   return async (dispatch, getState) => {
-    dispatch(ui.actions.setLoader(true));
-    
-    // For pagination
-    // const searchResults = getState().users.searchResults
-    // let page = 1;
-    // if (searchResults) {
-    //   searchResults.items / 30 
-    // }
-
+    dispatch(ui.actions.setLoading(true));
     const response = await octokit.rest.search.users({
       q: userName,
     })
-    console.log(response);
-    dispatch(ui.actions.setLoader(false));
-    // if (page === 1) {
-    //   dispatch(users.actions.setSearchResult(response.data))
-    // } else {
-    //   dispatch(users.actions.addSearchResults(response.data.items))
-    // }
+    dispatch(ui.actions.setLoading(false));
     dispatch(users.actions.setSearchResult(response.data))
     dispatch(users.actions.addSearchResults(response.data.items))
   }
 }
-
-// pagination
-// export const loadMoreUsers = (userName, currentPage) => {
-//   return async (dispatch, getState) => {
-//     dispatch(ui.actions.setLoader(true));
-//     // At the end of the page set off thunk to load more users
-//     // 
-//     dispatch(ui.actions.setLoader(false));
-//   }
-// }
