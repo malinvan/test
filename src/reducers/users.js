@@ -18,11 +18,7 @@ export const users = createSlice({
   },
 });
 
-/**
- * Thunk to retrieve given user
- * @param {*} userName - The userame of the user to fetch
- * @returns 
- */
+//  Thunk to retrieve given user
  export const getUser = (userName) => {
   return async (dispatch, getState) => {
     dispatch(ui.actions.setLoading(true));
