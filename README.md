@@ -26,6 +26,10 @@ In order to no add the Github token directly in the repository (this is a bad pr
 
 - Add a toaster for the stars using a library like React-Toastify https://www.npmjs.com/package/react-toastify
 
+- Error management connected to the API
+
+- If I would develop this for an application that is not a test I probably would have used a UI-library. For example material-ui. 
+
 # Instructions on how to run the application on a new computer (it is OK to restrict it to a specific OS or environment)
 To run the application locally you will need a GitHub API-token and either add it in the client.js file or as an environmental token in the terminal.
 

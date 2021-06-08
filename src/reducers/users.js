@@ -7,7 +7,6 @@ export const users = createSlice({
   initialState: {
     user: null,
     searchResults: null,
-    currentPage: 0,
   },
   reducers: {
     setUser: (store, action) => {
@@ -16,9 +15,6 @@ export const users = createSlice({
     setSearchResult: (store, action) => {
       store.searchResults = action.payload;
     },
-    addSearchResults: (store, action) => {
-      store.searchResults.items = [...store.searchResults.items, action.payload];
-    }
   },
 });
 
@@ -48,6 +44,5 @@ export const searchUsers = (userName) => {
     })
     dispatch(ui.actions.setLoading(false));
     dispatch(users.actions.setSearchResult(response.data))
-    dispatch(users.actions.addSearchResults(response.data.items))
   }
 }
